@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct QuickTab: View {
+    @ObservedObject var model = QuickViewModel()
+    
+    init() {
+        model.getData()
+    }
+    
     var body: some View {
         VStack {
             Text("Quick Notes")
@@ -16,24 +22,21 @@ struct QuickTab: View {
                 .padding(.bottom, 10)
             Divider()
             ScrollView (.vertical, showsIndicators: false) {
-                VStack (spacing: 16) {
-                    QuickNoteItem()
-                    QuickNoteItem()
-                    QuickNoteItem()
-                    QuickNoteItem()
-                    QuickNoteItem()
-                    QuickNoteItem()
-                    QuickNoteItem()
-                    QuickNoteItem()
-                    QuickNoteItem()
-                    QuickNoteItem()
-                }.frame(width: UIScreen.screenWidth)
-                .padding(.top, 10)
+                ForEach(model.list, id: \.self) { item in
+                    QuickNoteItem(
+                        description: item.description,
+                        color: item.color
+                    )
+                    .frame(width: UIScreen.screenWidth)
+                    .padding(.top, 10)
+                }
             }
             
         }
-        
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .onAppear() {
+            
+        }
     }
 }
 
@@ -44,22 +47,4 @@ struct QuickTab_Previews: PreviewProvider {
 }
 
 
-struct QuickNoteItem: View {
-    var body: some View {
-        VStack (alignment: .leading) {
-            Rectangle()
-                .frame(width: 121, height: 3)
-                .foregroundColor(.red)
-                .padding(.leading, 32)
-            Text("Meeting with Jessica in Central Park at 10:30PM")
-                .font(.system(size: 16))
-                .padding(.trailing, 19)
-                .padding(.leading, 32)
-                .padding(.vertical, 16)
-        }
-        .cornerRadius(3)
-        .padding(.horizontal, 16)
-        .background(.white)
-        .shadow(color: Color(224, 224, 224).opacity(0.5), radius: 9, x: 5, y: 5)
-    }
-}
+

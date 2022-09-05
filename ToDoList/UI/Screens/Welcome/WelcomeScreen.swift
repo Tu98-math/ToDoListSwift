@@ -10,8 +10,6 @@ import SwiftUI
 struct WelcomeScreen: View {
     @State var pageIndex = 0
     
-    @State var showLoginPage = false
-    
     var body: some View {
        VStack {
            buildTabImage()
@@ -22,13 +20,8 @@ struct WelcomeScreen: View {
        }
        .frame(width: UIScreen.screenWidth, height: UIScreen.screenHeight)
        .ignoresSafeArea()
-       .overlay(
-        Group {
-            if showLoginPage {
-                LoginScreen().transition(.move(edge: .trailing))
-            }
-        }
-       )
+       .navigationBarTitle("")
+       .navigationBarHidden(true)
     }
     
     @ViewBuilder
@@ -45,12 +38,13 @@ struct WelcomeScreen: View {
                     Text(welcome.description)
                         .font(.system(size: 18))
                         .foregroundColor(Color(49,49,49))
-
+                        
                 }
                 .tag(index)
                 .padding()
             }
         }
+        .tabViewStyle(.page)
     }
     
     @ViewBuilder
@@ -62,8 +56,7 @@ struct WelcomeScreen: View {
     func buildLoginLink() -> some View {
         WelcomeLoginLink(
             pageIndex: pageIndex,
-            toNextPage: { pageIndex += 1 },
-            toLogin: { withAnimation{ showLoginPage =  true }}
+            toNextPage: { withAnimation{ pageIndex += 1 }}
         )
     }
 }

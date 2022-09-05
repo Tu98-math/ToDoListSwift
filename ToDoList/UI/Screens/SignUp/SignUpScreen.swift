@@ -25,6 +25,8 @@ struct SignUpScreen: View {
                 buildLoginLink()
             }.padding(.all, 24)
         }
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
     
     var disableForm: Bool {

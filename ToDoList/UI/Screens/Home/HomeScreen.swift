@@ -16,18 +16,30 @@ struct HomeScreen: View {
     
     var body: some View {
         VStack {
-            TabView (selection: $currentTab) {
-                MyTaskTab()
-                    .tag(Tab.MyTask)
-                MenuTab()
-                    .tag(Tab.Menu)
-                QuickTab()
-                    .tag(Tab.Quick)
-                ProfileTab()
-                    .tag(Tab.Profile)
+            NavigationView{
+                TabView (selection: $currentTab) {
+                    MyTaskTab()
+                        .tag(Tab.MyTask)
+                        .navigationBarTitle("")
+                        .navigationBarHidden(true)
+                    MenuTab()
+                        .tag(Tab.Menu)
+                        .navigationBarTitle("")
+                        .navigationBarHidden(true)
+                    QuickTab()
+                        .tag(Tab.Quick)
+                        .navigationBarTitle("")
+                        .navigationBarHidden(true)
+                    ProfileTab()
+                        .tag(Tab.Profile)
+                        .navigationBarTitle("")
+                        .navigationBarHidden(true)
+                }
             }
             buildCustomBar()
         }
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
     
     @ViewBuilder

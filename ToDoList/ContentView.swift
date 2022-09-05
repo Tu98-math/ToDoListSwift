@@ -14,13 +14,15 @@ struct ContentView: View {
     
     var body: some View {
         
-        Group {
+        NavigationView {
             if viewModel.signedIn {
                 HomeScreen()
             } else {
                 WelcomeScreen()
             }
         }
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
         .onAppear {
             viewModel.signedIn = viewModel.isSignedIn
         }

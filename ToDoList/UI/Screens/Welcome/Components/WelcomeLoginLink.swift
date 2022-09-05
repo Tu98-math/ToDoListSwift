@@ -10,7 +10,6 @@ import SwiftUI
 struct WelcomeLoginLink: View {
     var pageIndex: Int
     var toNextPage: () -> Void
-    var toLogin: () -> Void
     
     var body: some View {
         ZStack {
@@ -29,22 +28,21 @@ struct WelcomeLoginLink: View {
                     .padding([.leading, .trailing], 41)
                     .padding(.bottom, 10)
                 } else {
-                    PrimaryButton(
-                        title: AppStrings.getStarted,
-                        onTap: toLogin
-                    )
+                    NavigationLink(destination: LoginScreen()) {
+                        PrimaryButton(
+                            title: AppStrings.getStarted,
+                            isTap: false
+                        )
+                    }
                     .padding([.leading, .trailing], 41)
                     .padding(.bottom, 10)
                 }
-                    
-                Button(
-                    action: toLogin
-                ) {
+                
+                NavigationLink(destination: LoginScreen()) {
                     Text(AppStrings.login)
                         .font(.system(size: 18))
                         .foregroundColor(.white)
                 }
-                
             }
         }
     }
